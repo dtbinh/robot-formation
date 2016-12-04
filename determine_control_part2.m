@@ -21,10 +21,7 @@ degree_offset = 8;
 rad_offset = degree_offset*(pi()/180);
 %How many meters off it can be
 dis_offset = 1;
-if(~(theta<=theta_goal+rad_offset&&theta>=theta_goal-rad_offset))
-    UR = wheel_velocity;
-    UL = -UR;
-else
+if((theta<=theta_goal+rad_offset&&theta>=theta_goal-rad_offset))
     if(abs(distance-dis_offset)>0)
     UR = wheel_velocity;
     UL = UR;
@@ -38,5 +35,15 @@ else
             fprintf('Success');
         end
     end
-end
+elseif(theta<=theta_goal+rad_offset*2&&theta>=theta_goal-rad_offset*2)
+    UR = wheel_velocity/4;
+    UL = -UR;
+elseif(theta<=theta_goal+rad_offset*4&&theta>=theta_goal-rad_offset*4)
+    UR = wheel_velocity/2;
+    UL = -UR;    
+else
+    UR = wheel_velocity;
+    UL = -UR;
+    
+
 end
